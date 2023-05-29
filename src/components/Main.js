@@ -2,7 +2,7 @@ import React from "react";
 import EditProfileButtom from "../images/Edit_Button(1).svg";
 import EditAvatarButton from "../images/edit__avatar.svg";
 import AddButton from "../images/Vector_(3).svg";
-import api from "../utils/ Api.js";
+import api from "../utils/ api.js";
 import Card from "./Card.js";
 
 function Main(props) {
