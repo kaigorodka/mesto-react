@@ -1,11 +1,11 @@
 import React from "react";
 import trashIcon from "../images/Trash.svg";
 import likeIcon from "../images/Vector_(2).svg";
-debugger;
-function Card({ cards, handleTrashClick, onCardClick }) {
-  return cards.map((card, i) => (
+
+function Card({ card, handleTrashClick, onCardClick }) {
+  return (
     <>
-      <div key={i} className="element">
+      <div className="element">
         <button
           className="trash-button"
           type="button"
@@ -30,7 +30,7 @@ function Card({ cards, handleTrashClick, onCardClick }) {
         </div>
       </div>
     </>
-  ));
+  );
 }
 
 export default Card;

@@ -5,6 +5,7 @@ import Main from "./Main";
 import Footer from "./Footer";
 import ImagePopup from "./ImagePopup";
 import PopupWithForm from "./PopupWithForm";
+import SaveButton from "./SaveButton";
 
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] =
@@ -20,24 +21,39 @@ function App() {
     setConfirmPopupOpen(false);
     setSelectedCard(false);
   }
+  function getOnEditAvatar() {
+    setEditAvatarPopupOpen(true);
+  }
+  function getOnEditProfile() {
+    setEditProfilePopupOpen(true);
+  }
+  function getOnAddPlace() {
+    setAddPlacePopupOpen(true);
+  }
+  function handleTrashClick() {
+    setConfirmPopupOpen(true);
+  }
+  function handleCardClick(card) {
+    setSelectedCard(card);
+  }
   return (
-    <body className="page">
+    <div className="page">
       <Header />
       <Main
         onEditAvatar={() => {
-          setEditAvatarPopupOpen(true);
+          getOnEditAvatar();
         }}
         onEditProfile={() => {
-          setEditProfilePopupOpen(true);
+          getOnEditProfile();
         }}
         onAddPlace={() => {
-          setAddPlacePopupOpen(true);
+          getOnAddPlace();
         }}
         handleTrashClick={() => {
-          setConfirmPopupOpen(true);
+          handleTrashClick();
         }}
         handleCardClick={(card) => {
-          setSelectedCard(card);
+          handleCardClick(card);
         }}
       />
       <Footer />
@@ -72,9 +88,7 @@ function App() {
               maxLength="200"
             />
             <span className="popup__error popup__error_status-error"></span>
-            <button className="popup__save-button" type="submit">
-              Сохранить
-            </button>
+            <SaveButton buttonText={"Сохранить"} />
           </>
         }
       />
@@ -107,9 +121,7 @@ function App() {
               id="input_url"
             />
             <span className="popup__error popup__error_input_url-error"></span>
-            <button className="popup__save-button" type="submit">
-              Создать
-            </button>
+            <SaveButton buttonText={"Создать"} />
           </>
         }
       />
@@ -131,9 +143,7 @@ function App() {
               id="avatar_url"
             />
             <span className="popup__error popup__error_avatar_url-error"></span>
-            <button className="popup__save-button" type="submit">
-              Сохранить
-            </button>
+            <SaveButton buttonText={"Сохранить"} />
           </>
         }
       />
@@ -142,15 +152,13 @@ function App() {
         name="confirm"
         children={
           <>
-            <button className="popup__save-button" type="submit">
-              Да
-            </button>
+            <SaveButton buttonText={"Да"} />
           </>
         }
         isOpen={isConfirmPopupOpen ? "popup_opened" : ""}
         onClose={closeAllPopups}
       />
-    </body>
+    </div>
   );
 }
 

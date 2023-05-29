@@ -1,6 +1,6 @@
 import React from "react";
 import closeIcon from "../images/Close_Icon.svg";
-
+import SaveButton from "./SaveButton";
 function PopupWithForm(props) {
   return (
     <div className={`popup popup_${props.name} ${props.isOpen}`}>
@@ -9,7 +9,7 @@ function PopupWithForm(props) {
           <img src={closeIcon} alt="Закрыть" className="close-icon__img" />
         </button>
         <h2 className="popup__title">{props.title}</h2>
-        <form name={props.name} className="popup__form" action="/" noValidate>
+        <form name={props.name} className="popup__form" action="/">
           {props.children}
         </form>
       </div>

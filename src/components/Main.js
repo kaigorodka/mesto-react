@@ -2,7 +2,7 @@ import React from "react";
 import EditProfileButtom from "../images/Edit_Button(1).svg";
 import EditAvatarButton from "../images/edit__avatar.svg";
 import AddButton from "../images/Vector_(3).svg";
-import api from "../utils/ api.js";
+import api from "../utils/api.js";
 import Card from "./Card.js";
 
 function Main(props) {
@@ -10,19 +10,21 @@ function Main(props) {
   const [userDescription, setUserDescription] = React.useState("");
   const [userAvatar, setUserAvatar] = React.useState("");
   const [cards, setCards] = React.useState([]);
-  Promise.all([api.getUserInfo(), api.getCardList()])
-    .then(([info, cards]) => {
-      // userId = info._id;
-      const userInformation = info;
-      setUserName(userInformation.name);
-      setUserDescription(userInformation.about);
-      setUserAvatar(userInformation.avatar);
-      setCards(cards);
-      // cardList.renderItems(cards);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  React.useEffect(() => {
+    Promise.all([api.getUserInfo(), api.getCardList()])
+      .then(([info, cards]) => {
+        // userId = info._id;
+        const userInformation = info;
+        setUserName(userInformation.name);
+        setUserDescription(userInformation.about);
+        setUserAvatar(userInformation.avatar);
+        setCards(cards);
+        // cardList.renderItems(cards);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <main>
       <section className="profile">
@@ -59,11 +61,16 @@ function Main(props) {
         </button>
       </section>
       <section className="elements">
-        <Card
-          cards={cards}
-          handleTrashClick={props.handleTrashClick}
-          onCardClick={props.handleCardClick}
-        />
+        {cards.map((card) => {
+          return (
+            <Card
+              card={card}
+              key={card._id}
+              handleTrashClick={props.handleTrashClick}
+              onCardClick={props.handleCardClick}
+            />
+          );
+        })}
       </section>
     </main>
   );
