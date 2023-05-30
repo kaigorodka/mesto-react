@@ -1,6 +1,6 @@
 import React from "react";
 import closeIcon from "../images/Close_Icon.svg";
-import SaveButton from "./SaveButton";
+
 function PopupWithForm(props) {
   return (
     <div className={`popup popup_${props.name} ${props.isOpen}`}>
@@ -11,6 +11,9 @@ function PopupWithForm(props) {
         <h2 className="popup__title">{props.title}</h2>
         <form name={props.name} className="popup__form" action="/">
           {props.children}
+          <button className="popup__save-button" type="submit">
+            {props.buttonText}
+          </button>
         </form>
       </div>
     </div>

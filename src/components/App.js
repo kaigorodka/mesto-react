@@ -5,7 +5,6 @@ import Main from "./Main";
 import Footer from "./Footer";
 import ImagePopup from "./ImagePopup";
 import PopupWithForm from "./PopupWithForm";
-import SaveButton from "./SaveButton";
 
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] =
@@ -21,13 +20,13 @@ function App() {
     setConfirmPopupOpen(false);
     setSelectedCard(false);
   }
-  function getOnEditAvatar() {
+  function handleEditAvatarClick() {
     setEditAvatarPopupOpen(true);
   }
-  function getOnEditProfile() {
+  function handleEditProfileClick() {
     setEditProfilePopupOpen(true);
   }
-  function getOnAddPlace() {
+  function handleAddPlaceClick() {
     setAddPlacePopupOpen(true);
   }
   function handleTrashClick() {
@@ -37,17 +36,17 @@ function App() {
     setSelectedCard(card);
   }
   return (
-    <div className="page">
+    <div>
       <Header />
       <Main
         onEditAvatar={() => {
-          getOnEditAvatar();
+          handleEditAvatarClick();
         }}
         onEditProfile={() => {
-          getOnEditProfile();
+          handleEditProfileClick();
         }}
         onAddPlace={() => {
-          getOnAddPlace();
+          handleAddPlaceClick();
         }}
         handleTrashClick={() => {
           handleTrashClick();
@@ -62,6 +61,7 @@ function App() {
         onClose={closeAllPopups}
         name="edit-profile"
         title="Редактировать профиль"
+        buttonText={"Сохранить"}
         children={
           <>
             <input
@@ -69,7 +69,7 @@ function App() {
               className="popup__input popup__input_type_name"
               id="name"
               name="name"
-              value=""
+              defaultValue=""
               required
               placeholder="Имя"
               minLength="2"
@@ -79,7 +79,7 @@ function App() {
             <input
               type="text"
               name="about"
-              value=""
+              defaultValue=""
               required
               placeholder="О себе"
               className="popup__input popup__input_type_status"
@@ -88,7 +88,6 @@ function App() {
               maxLength="200"
             />
             <span className="popup__error popup__error_status-error"></span>
-            <SaveButton buttonText={"Сохранить"} />
           </>
         }
       />
@@ -97,6 +96,7 @@ function App() {
         onClose={closeAllPopups}
         name="new_item"
         title="Новое место"
+        buttonText={"Создать"}
         children={
           <>
             <input
@@ -104,7 +104,7 @@ function App() {
               className="popup__input popup__input_type_name"
               id="place_name"
               name="name"
-              value=""
+              defaultValue=""
               required
               placeholder="Название"
               minLength="2"
@@ -114,14 +114,13 @@ function App() {
             <input
               type="url"
               name="link"
-              value=""
+              defaultValue=""
               required
               placeholder="Ссылка на картинку"
               className="popup__input popup__input_type_status"
               id="input_url"
             />
             <span className="popup__error popup__error_input_url-error"></span>
-            <SaveButton buttonText={"Создать"} />
           </>
         }
       />
@@ -131,30 +130,26 @@ function App() {
         title="Обновить аватар"
         onClose={closeAllPopups}
         name="avatar_edit"
+        buttonText={"Сохранить"}
         children={
           <>
             <input
               type="url"
               name="avatar"
-              value=""
+              defaultValue=""
               required
               placeholder="Ссылка на картинку"
               className="popup__input popup__input_type_status"
               id="avatar_url"
             />
             <span className="popup__error popup__error_avatar_url-error"></span>
-            <SaveButton buttonText={"Сохранить"} />
           </>
         }
       />
       <PopupWithForm
         title="Вы уверены?"
         name="confirm"
-        children={
-          <>
-            <SaveButton buttonText={"Да"} />
-          </>
-        }
+        buttonText={"Да"}
         isOpen={isConfirmPopupOpen ? "popup_opened" : ""}
         onClose={closeAllPopups}
       />
