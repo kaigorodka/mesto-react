@@ -4,27 +4,10 @@ import EditAvatarButton from "../images/edit__avatar.svg";
 import AddButton from "../images/Vector_(3).svg";
 import api from "../utils/api.js";
 import Card from "./Card.js";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function Main(props) {
-  const [userName, setUserName] = React.useState("");
-  const [userDescription, setUserDescription] = React.useState("");
-  const [userAvatar, setUserAvatar] = React.useState("");
-  const [cards, setCards] = React.useState([]);
-  React.useEffect(() => {
-    Promise.all([api.getUserInfo(), api.getCardList()])
-      .then(([info, cards]) => {
-        // userId = info._id;
-        const userInformation = info;
-        setUserName(userInformation.name);
-        setUserDescription(userInformation.about);
-        setUserAvatar(userInformation.avatar);
-        setCards(cards);
-        // cardList.renderItems(cards);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  const context = React.useContext(CurrentUserContext);
   return (
     <main>
       <section className="profile">
@@ -36,11 +19,11 @@ function Main(props) {
               className="profile__edit-icon"
             />
             <div className="opacity-maker"></div>
-            <img src={userAvatar} alt="Аватар" className="profile__image" />
+            <img src={context.avatar} alt="Аватар" className="profile__image" />
           </button>
           <div className="profile-info">
             <div className="profile__row-alignment">
-              <h1 className="profile__name">{userName}</h1>
+              <h1 className="profile__name">{context.name}</h1>
               <button
                 className="edit-button"
                 type="button"
@@ -53,7 +36,7 @@ function Main(props) {
                 />
               </button>
             </div>
-            <h2 className="profile__status">{userDescription}</h2>
+            <h2 className="profile__status">{context.about}</h2>
           </div>
         </div>
         <button className="add-button" type="button" onClick={props.onAddPlace}>
@@ -61,13 +44,15 @@ function Main(props) {
         </button>
       </section>
       <section className="elements">
-        {cards.map((card) => {
+        {props.cards.map((card) => {
           return (
             <Card
               card={card}
               key={card._id}
               handleTrashClick={props.handleTrashClick}
               onCardClick={props.handleCardClick}
+              onCardLike={props.handleCardLike}
+              handleCardDelete={props.handleCardDelete}
             />
           );
         })}
