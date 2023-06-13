@@ -67,16 +67,26 @@ function App() {
         setCards((state) =>
           state.map((c) => (c._id === card._id ? newCard : c))
         );
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 
   //удаление карты через API
-  function handleCardDelete(card) {
-    api.deleteCard(card).then((cardList) => {
-      console.log(cardList);
-      // setCards(cardList.filter());
-      setCards(cardList);
-    });
+  function handleCardDelete(mainCard) {
+    api
+      .deleteCard(mainCard)
+      .then(
+        setCards(
+          cards.filter(function (card) {
+            return card._id !== mainCard._id;
+          })
+        )
+      )
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   // обновление данных юзера через API
@@ -86,7 +96,10 @@ function App() {
       .then((data) => {
         setCurrentUser(data);
       })
-      .then(closeAllPopups);
+      .then(closeAllPopups)
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   // обновление аватара через API
@@ -96,7 +109,10 @@ function App() {
       .then((data) => {
         setCurrentUser(data);
       })
-      .then(closeAllPopups);
+      .then(closeAllPopups)
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   // добавление новой карточки через API
@@ -106,7 +122,10 @@ function App() {
       .then((newCard) => {
         setCards([newCard, ...cards]);
       })
-      .then(closeAllPopups);
+      .then(closeAllPopups)
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   return (
@@ -114,7 +133,6 @@ function App() {
       <div>
         <Header />
         <Main
-          cards={cards}
           onEditAvatar={() => {
             handleEditAvatarClick();
           }}
@@ -136,6 +154,7 @@ function App() {
           handleCardDelete={(card) => {
             handleCardDelete(card);
           }}
+          cards={cards}
         />
         <Footer />
         <EditProfilePopup
@@ -161,13 +180,13 @@ function App() {
         />
         <ImagePopup onClose={closeAllPopups} card={selectedCard} />
 
-        <PopupWithForm
+        {/* <PopupWithForm
           title="Вы уверены?"
           name="confirm"
           buttonText={"Да"}
           isOpen={isConfirmPopupOpen ? "popup_opened" : ""}
           onClose={closeAllPopups}
-        />
+        /> */}
       </div>
     </CurrentUserContext.Provider>
   );

@@ -61,7 +61,7 @@ export class Api {
   }
   deleteCard(data) {
     console.log(data);
-    return fetch(`${this._baseUrl}/cards/${data._cardId}`, {
+    return fetch(`${this._baseUrl}/cards/${data._id}`, {
       method: "DELETE",
       headers: this._headers,
     }).then((res) => {
@@ -74,6 +74,7 @@ export class Api {
       method: "PUT",
       headers: this._headers,
     }).then((res) => {
+      console.log(res);
       return this._getResponseData(res);
     });
   }
@@ -86,11 +87,10 @@ export class Api {
     });
   }
   changeLikeCardStatus({ data, isLiked }) {
-    debugger;
     if (isLiked) {
-      this.removeLike(data);
+      return this.removeLike(data);
     } else {
-      this.likeThePhoto(data);
+      return this.likeThePhoto(data);
     }
   }
 }
