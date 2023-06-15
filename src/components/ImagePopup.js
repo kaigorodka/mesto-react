@@ -1,7 +1,7 @@
 import React from "react";
 import closeIcon from "../images/Close_Icon.svg";
 function ImagePopup({ onClose, card }) {
-  if (card === false) {
+  if (card == null) {
     return null;
   }
   const { name, link } = card;

@@ -17,7 +17,7 @@ function EditProfilePopup(props) {
   React.useEffect(() => {
     setName(context.name);
     setDescription(context.about);
-  }, [context]);
+  }, [context, props.isOpen]);
 
   function handleSubmit(e) {
     e.preventDefault();

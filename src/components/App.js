@@ -20,7 +20,7 @@ function App() {
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
   const [isConfirmPopupOpen, setConfirmPopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState(null);
 
   // подгрузка данных с сервера
   React.useEffect(() => {
@@ -41,7 +41,7 @@ function App() {
     setAddPlacePopupOpen(false);
     setEditAvatarPopupOpen(false);
     setConfirmPopupOpen(false);
-    setSelectedCard(false);
+    setSelectedCard(null);
   }
   function handleEditAvatarClick() {
     setEditAvatarPopupOpen(true);
