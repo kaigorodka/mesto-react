@@ -26,7 +26,6 @@ function EditProfilePopup(props) {
       about: description,
     });
   }
-  console.log(context.name, context.about);
   return (
     <PopupWithForm
       isOpen={props.isOpen ? "popup_opened" : ""}
